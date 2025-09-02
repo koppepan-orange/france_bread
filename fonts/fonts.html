@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <style>
+        @font-face{src:url('fonts/comicsans.ttf');font-family:comicsans;}
+        @font-face{src:url('fonts/papyrus.ttf');font-family:papyrus;}
+        @font-face{src:url('fonts/hangyaku.ttf');font-family:hangyaku;}
+        @font-face{src:url('fonts/cube12.ttf');font-family:cube12;}
+        @font-face{src:url('fonts/genjuu.ttf');font-family:genjuu;}
+        @font-face{src:url('fonts/kaimetsu.otf');font-family:kaimetsu;}
+        @font-face{src:url('fonts/hackgen.ttf');font-family:hackgen;}
+        @font-face{src:url('fonts/wingdings.ttf');font-family:wingdings;}
+        @font-face{src:url('fonts/wingdings2.ttf');font-family:wingdings2;}
+        @font-face{src:url('fonts/wingdings3.ttf');font-family:wingdings3;}
+        @font-face{src:url('fonts/webdings.ttf');font-family:webdings;}
+        @font-face{src:url('fonts/kurundeco.otf');font-family: kurundeco;}
+        @font-face{src:url('fonts/starrysky.otf');font-family: starrysky;}
+        @font-face{src:url('fonts/kurobara.ttf');font-family: kurobara;}
+        @font-face{src:url('fonts/marukoius.ttf');font-family: marukoius;}
+        @font-face{src:url('fonts/novamono.ttf');font-family: novamono;}
+        @font-face{src:url('fonts/pricedown.ttf');font-family: pricedown;}
+        @font-face{src:url('fonts/corporate.otf');font-family: corporate;}
+
+        #kokodayo{
+            width: 98%;
+            height: 700px;
+            word-wrap: break-word;/* 改行を勝手にしてくれるやつ */
+            white-space: normal;
+            font-family: default;
+        }
+    </style>
+    <select id="change" onchange="document.querySelector('#kokodayo').style.fontFamily=document.querySelector('#change').value">
+        <option value="default">default</option>
+        <option value="comicsans">comicsans</option>
+        <option value="papyrus">papyrus</option>
+        <option value="hangyaku">hangyaku</option>
+        <option value="cube12">cube12</option>
+        <option value="genjuu">genjuu</option>
+        <option value="kaimetsu">kaimetsu</option>
+        <option value="hackgen">hackgen</option>
+        <option value="kurundeco">kurundeco</option>
+        <option value="starrysky">starrysky</option>
+        <option value="kurobara">kurobara</option>
+        <option value="marukoius">marukoius</option>
+        <option value="novamono">novamono</option>
+        <option value="pricedown">pricedown</option>
+        <option value="corporate">corporate</option>
+        <option value="wingdings">wingdings</option>
+        <option value="wingdings2">wingdings2</option>
+        <option value="wingdings3">wingdings3</option>
+        <option value="webdings">webdings</option>
+    </select>
+    <textarea id="kokodayo"></textarea> 
+</body>
+</html>
