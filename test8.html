@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .timer-container {
+            width: 200px;
+            height: 200px;
+        }
+        .circle-timer {
+            transform: rotate(-90deg); /* 開始位置を12時の方向にする */
+        }
+        circle {
+            fill: none;
+            stroke-width: 10;
+        }
+
+        .bg {
+            stroke: #ddd; /* 背景の色 */
+        }
+
+        .progress {
+            stroke: #f00; /* プログレスバーの色 */
+            stroke-dasharray: 283; /* 円周の長さ */
+            stroke-dashoffset: 283; /* 初期値（非表示） */
+            transition: stroke-dashoffset 0.2s linear;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <svg class="circle-timer" viewBox="0 0 100 100">
+          <circle class="bg" cx="50" cy="50" r="45" />
+          <circle class="progress" cx="50" cy="50" r="45" />
+        </svg>
+      </div>
+
+    <script>
+        function setProgress(percent) {
+        const circle = document.querySelector('.progress');
+        const radius = document.querySelector('.progress').r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+
+        // 円周に対する進行度を計算
+        const offset = circumference - (percent / 100) * circumference;
+            document.querySelector('.progress').style.strokeDashoffset = offset;
+        }
+
+        // デモ用に進行をアニメーション
+        let percent = 0;
+        setInterval(() => {
+            percent = (percent + 1) % 101; // 0～100%をループ
+            setProgress(percent);
+        }, 100);
+
+    </script>
+</body>
+</html>

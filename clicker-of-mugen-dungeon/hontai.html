@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>clicker of mugen</title>
+  <html lang="ja">
+  <meta charset="UTF-8">
+  <link rel="icon" href="icon.ico">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="mitame.css">
+  <style id="ButtonStyle"></style>
+</head>
+<body>
+<div id="All">
+<button id="Notice-button" onclick="OpenNotice()"><img id="Notice-button-img" src="assets/icons/notice.png"></button><div id="Notice-page"></div>
+<div id="GameZone">
+  <div id="HomeTab">
+    <canvas id="NowMap" width="600" height="600" style="border:1px solid #000000"></canvas>
+    <div id="HomeArea"></div>
+    <div id="GameArea"></div>
+    <div id="InventoryArea"></div>
+    <div id="EventArea"></div>
+    <br><span align="center" id="log"></span>
+  </div>
+</div>
+<script src="nakami.js"></script>
+</body>
+</html>

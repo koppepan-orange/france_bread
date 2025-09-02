@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>clicker of mugen</title>
+  <html lang="ja">
+  <meta charset="UTF-8">
+  <style>
+    @font-face{font-family:comicsans;src:url('Ldfcomicsans-jj7l.ttf');}
+      *{font-family:comicsans;margin:0 auto;text-align:center;}
+      .offskillbutton{
+        border: 2px solid #6d6d6d;
+        padding: 2px 3px;
+        background: #c9c9c9;
+        cursor: pointer;
+      }
+    .cards-container {
+        width: 210px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;/* カードを均等に間隔を空けて配置します */
+    }
+    .card {
+        width: 100px;
+        height: 120px;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 0 5px; /* カード間のスペースを調整します */
+        box-shadow: 0 4px 15px rgba(0,0,0,.2);
+    }
+      .card__textbox{
+        width: 100%;
+        height: auto;
+        padding: 2px 10px;
+        background: #fff;
+        box-sizing: border-box;
+      }
+      .card__textbox > * + *{
+        margin-top: 2px;
+      }
+      .card__titletext{
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 125%;
+      }
+      .card__overviewtext{
+        font-size: 12px;
+        line-height: 150%;
+      }
+    </style>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body class="AllSentences">
+  <br><br><br>
+  <p align="center" class="rpg">
+    <style id="ButtonStyle">
+    </style>
+    <span id="BattleScene">
+  <span>turn:</span><span id="TurnCount">0</span>
+<div class="cards-container">
+    <div class="card">
+        <div class="card__textbox">
+            <div class="card__titletext"><span id="EnemyName">Enemy</span></div>
+            <div class="card__overviewtext">
+                HP:<span id="EnemyHealth">100</span>/<span id="EnemyMaxHealth">100</span><br>
+                MP:<span id="EnemyMp">100</span>/<span id="EnemyMaxMp">100</span><br>
+                LV:<span id="EnemyLevel">1</span><br>
+                <span id="EnemyDebuff"></span>　<span id="EnemySkillDebuff"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 他のカードを追加 -->
+</div><br><br>
+<div class="cards-container">
+    <span id="Player1">
+    <div class="card">
+        <div class="card__textbox">
+          <img id="PlayerImage1" src="assets/white.png" width="40" height="40">
+            <div class="card__titletext"><span id="PlayerName"></span></div>
+            <div class="card__overviewtext">
+                HP:<span id="PlayerHealth">100</span>/<span id="PlayerMaxHealth">100</span><br>
+                MP:<span id="PlayerMp">50</span>/<span id="PlayerMaxMp">50</span><br>
+                LV:<span id="PlayerLevel">1</span><br>
+                <span id="PlayerBuff"></span>　<span id="PlayerSkillBuff"></span>　<span id="PlayerSkillDebuff"></span>
+            </div>
+        </div>
+    </div>
+    </span>
+    <label id="Player2" style="display: none;"></label>
+    <!-- 他のカードを追加 -->
+</div>
+  <br><br><br>
+  <button class="button" id="select1" onclick="select1()">attack</button>  
+  <button class="button" id="select2" onclick="select2()">magic</button>
+  <button class="button" id="select3" onclick="select3()">tools</button>
+  <button class="button" id="back" onclick="back()">pass  </button>
+  <br><span id="Skillbutton"></span>
+  <br><br><span align="center" id="log">pless "reset" to game start</span>
+  <br><span id="StatusAppearDisappear"><button class="button" id="StatusButton" onclick="StatusAppear()">status</button></span>
+  <br><span id="Status"> </span>
+  <br><br><br><br><span id="BackButtonDesu"></span> 
+  </span>
+  <span id="Thisdisappearsafterthegamestartnameinput"><br><input class="button" id="NameInputText" type="text" maxlength="10" placeholder="write name here"></span>
+  <br><span id="Thisdisappearsafterthegamestartbegin"><button align="center" class="button" onclick="begin()">start!</button></span>
+</p>
+<script src="many-rpg-moromoro.js"></script> <!-- https://koppepan-orange-game.github.io/game_daisuki/clicker_of_mugen_moromoro.js -->
+</body>
+</html>

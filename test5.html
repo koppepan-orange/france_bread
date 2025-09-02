@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Audio Player</title>
+    <style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+    }
+    #audioPlayer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #NowMusicName {
+        text-align: center;
+    }
+    #controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .controlBtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+    }
+    .controlBtn img {
+        width: 50px;
+        height: 50px;
+    }
+    #progressContainer {
+        width: 300px;
+        height: 10px;
+        background-color: #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+    }
+    #progressBar {
+        height: 100%;
+        background-color: #0095DD;
+        width: 0;
+        transition: width 0.1s;
+    }
+    </style>
+</head>
+<body>
+    <div id="audioPlayer">
+        <div id="NowMusicName">ツイッターランド/STEAKA-初音ミク</div>
+        <div id="controls">
+            <button id="prevBtn" class="controlBtn"><img src="button_prev.png" alt="Previous"></button>
+            <button id="playPauseBtn" class="controlBtn"><img id="playPauseImg" src="button_play.png" alt="Play"></button>
+            <button id="nextBtn" class="controlBtn"><img src="button_next.png" alt="Next"></button>
+            <button id="muteBtn" class="controlBtn"><img id="muteImg" src="button_unmute.png" alt="Mute"></button>
+        </div>
+        <div id="progressContainer"><div id="progressBar"></div></div>
+    </div>
+    <audio id="audio" src="music1.mp3"></audio>
+    <script>
+        const audio = document.getElementById('audio');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const progressBar = document.getElementById('progressBar');
+        const playPauseImg = document.getElementById('playPauseImg');
+        const muteImg = document.getElementById('muteImg');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const playlist = [
+            'musics/music1.mp3',
+            'musics/music2.mp3',
+            'musics/music3.mp3',
+            'musics/music4.mp3',
+            'musics/music5.mp3',
+            'musics/music6.mp3',
+        ];
+        let nowaudio = 'music1.mp3';
+        let currentTrackIndex = 0;
+        // 再生/一時停止ボタンの操作
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseImg.src = 'button_stop.png'; // 一時停止画像に変更
+                playPauseImg.alt = 'Pause';
+            } else {
+                audio.pause();
+                playPauseImg.src = 'button_play.png'; // 再生画像に変更
+                playPauseImg.alt = 'Play';
+            }
+        });
+        // ミュート/ミュート解除ボタンの操作
+        muteBtn.addEventListener('click', () => {
+            audio.muted = !audio.muted;
+            if (audio.muted) {
+                muteImg.src = 'button_mute.png'; // ミュート画像に変更
+                muteImg.alt = 'Unmute';
+            } else {
+                muteImg.src = 'button_unmute.png'; // ミュート解除画像に変更
+                muteImg.alt = 'Mute';
+            }
+        });
+        // 次の曲に変更
+        nextBtn.addEventListener('click', () => {
+            if (currentTrackIndex < playlist.length - 1) {
+                currentTrackIndex++;
+            } else {
+                currentTrackIndex = 0; // プレイリストの最初の曲にループ
+            }
+            audio.src = playlist[currentTrackIndex];
+            setTimeout(() => {
+            audio.play().catch(error => {
+                console.log("Playback was prevented. Error: ", error);
+            });
+            }, 50);
+            nowaudio = playlist[currentTrackIndex];
+            audio.play();
+            playPauseImg.src = 'button_stop.png'; // 一時停止画像に変更
+            playPauseImg.alt = 'Pause';
+            switch(nowaudio){
+                case 'music1.mp3':
+                    nowmusicname = 'ツイッターランド/STEAKA-初音ミク';
+                    break;
+                case 'music2.mp3':
+                    nowmusicname = 'サンタムエルテ/wotaku-羽累';
+                    break;
+                case 'music3.mp3':
+                    nowmusicname = '合法覚醒剤/STEAKA-初音ミク';
+                    break;
+                case 'music4.mp3':
+                    nowmusicname = 'ド屑/なきそ-歌愛ユキ';
+                    break;
+                case 'music5.mp3':
+                    nowmusicname = 'ぷらいまり/いよわ-可不';
+                    break;
+                case 'music6.mp3':
+                    nowmusicname = 'つづみぐさ/いよわ-初音ミク';
+                    break;
+                default:
+            }
+            document.getElementById('NowMusicName').textContent = nowmusicname;
+        });
+        // 前の曲に変更
+        prevBtn.addEventListener('click', () => {
+            if (currentTrackIndex > 0) {
+                currentTrackIndex--;
+            } else {
+                currentTrackIndex = playlist.length - 1; // プレイリストの最後の曲にループ
+            }
+            audio.src = playlist[currentTrackIndex];
+            audio.play();
+            playPauseImg.src = 'button_stop.png'; // 一時停止画像に変更
+            playPauseImg.alt = 'Pause';
+        });
+        // 再生位置バーの更新
+        audio.addEventListener('timeupdate', () => {
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        });
+    </script>
+</body>
+</html>

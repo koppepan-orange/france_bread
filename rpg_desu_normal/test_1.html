@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Example</title>
+  <style>
+    @font-face {
+      font-family: comicsans;
+      src: url('Ldfcomicsans-jj7l.ttf');
+    }
+    * {
+      margin: 0 auto;
+      text-align: center;
+      font-family: comicsans;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="NowMap" width="600" height="600" style="border:1px solid #000000"></canvas>
+  <script>
+    const canvas = document.getElementById("NowMap");
+    const ctx = canvas.getContext("2d");
+    let map = [
+      [10, 10, 10, 10, 10, 10, 10, 10],
+      [10, 10, 10, 10, 10, 18, 10, 10],
+      [10, 11, 10, 10, 10, 10, 10, 15],
+      [10, 10, 10, 10, 10, 10, 10, 10],
+      [10, 16, 10, 10, 12, 13, 10, 10],
+      [10, 10, 10, 10, 10, 10, 14, 10],
+      [10, 10, 17, 10, 10, 11, 10, 10],
+      [19, 10, 10, 10, 10, 10, 10, 10]
+    ];
+
+    let AllowMove = 0;
+    let imagesLoaded = 0;
+    let totalImages = 11;
+
+    const images = {}; // 謎
+    const imageNames = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+    imageNames.forEach(num => {
+      const img = new Image();
+      img.src = `assets/maps/${num}.png`;
+      img.onload = () => {
+        imagesLoaded++;
+        if (imagesLoaded === totalImages) {
+          DrawBackground();
+        }
+      };
+      img.onerror = () => {
+        console.error(`Image ${num} failed to load.`);
+      };
+      images[num] = img;
+    });
+
+    function DrawBackground() {
+      for (let y = 0; y < map.length; y++) {
+        for (let x = 0; x < map[y].length; x++) {
+          const img = images[map[y][x]];
+          if (img) {
+            ctx.drawImage(img, x * 75, y * 75, 75, 75);
+          } else {
+            console.error(`Image for map value ${map[y][x]} not found.`);
+          }
+        }
+      }
+    }
+
+    // 選択画像のロードと初期表示
+    const IMGselect = new Image();
+    IMGselect.src = 'select.png';
+    IMGselect.onload = () => {
+      ctx.drawImage(IMGselect, 0, 0, 75, 75);
+    };
+
+    let SELECTx = 0; // 初期x座標
+    let SELECTy = 0; // 初期y座標
+
+    // キーが押されたときの...やつ
+    document.addEventListener('keydown', (event) => {
+      if(AllowMove == 0){
+      switch(event.key) {
+        case 'w':
+        case 'ArrowUp': // 上
+          SELECTy -= 75;
+          break;
+        case 'a':
+        case 'ArrowLeft': // 左
+          SELECTx -= 75;
+          break;
+        case 's':
+        case 'ArrowDown': // 下
+          SELECTy += 75;
+          break;
+        case 'd':
+        case 'ArrowRight': // 右
+          SELECTx += 75;
+          break;
+      }
+
+      // 枠外に出ないように制限
+      if(SELECTx<0){SELECTx=0};
+      if(SELECTy<0){SELECTy=0};
+      if(SELECTx>525){SELECTx=525};
+      if(SELECTy>525){SELECTy=525};
+
+      // 画面をクリアしてから再描画
+      ctx.clearRect(0, 0, 600, 600); 
+      DrawBackground();
+      ctx.drawImage(IMGselect, SELECTx, SELECTy, 75, 75);
+    }});
+
+    document.addEventListener('keydown', (event) => {
+      if(AllowMove == 0){
+      if(event.key == 'Enter'||event.key == 'z'){
+      if(SELECTx<0){SELECTx=0};
+      if(SELECTy<0){SELECTy=0};
+      if(SELECTx>525){SELECTx=525};
+      if(SELECTy>525){SELECTy=525};
+
+      // マップの位置を計算
+      const MAPx = Math.floor(SELECTx / 75);
+      const MAPy = Math.floor(SELECTy / 75);
+
+      // マップの値をチェック
+      if (MAPy >= 0 && MAPy < map.length && MAPx >= 0 && MAPx < map[MAPy].length) {
+        switch(map[MAPy][MAPx]) {
+          case 11:
+            break;
+        }
+      }
+
+      // 画面をクリアしてから再描画
+      ctx.clearRect(0, 0, 600, 600); 
+      DrawBackground();
+      ctx.drawImage(IMGselect, SELECTx, SELECTy, 75, 75);
+
+    }}});
+  </script>
+</body>
+</html>

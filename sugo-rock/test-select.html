@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .custom-select {
+  position: relative;
+  width: 200px;
+  font-size: 14px;
+  user-select: none;
+}
+
+.selected {
+  padding: 8px;
+  background: #eee;
+  border: 1px solid #aaa;
+  cursor: pointer;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #aaa;
+  border-top: none;
+  z-index: 10;
+}
+
+.options div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.options div:hover {
+  background: #ddd;
+}
+
+.hidden {
+  display: none;
+}
+
+    </style>
+</head>
+<body>
+    <div class="custom-select">
+  <div class="selected">選択してください</div>
+  <div class="options hidden">
+    <div data-value="add">追加</div>
+    <div data-value="rem">削除</div>
+    <div data-value="edit">編集</div>
+  </div>
+</div>
+
+<script>
+    const customSelect = document.querySelector('.custom-select');
+const selected = customSelect.querySelector('.selected');
+const options = customSelect.querySelector('.options');
+
+selected.addEventListener('click', () => {
+  options.classList.toggle('hidden');
+});
+
+options.querySelectorAll('div').forEach(option => {
+  option.addEventListener('click', () => {
+    selected.textContent = option.textContent;
+    selected.dataset.value = option.dataset.value;
+    options.classList.add('hidden');
+
+    // ここで実際の処理を呼び出す
+    if (option.dataset.value === 'add') comaAdd();
+    else if (option.dataset.value === 'rem') comaRem();
+    else console.log('バグってる');
+  });
+});
+
+// 外側クリックで閉じる
+document.addEventListener('click', e => {
+  if (!customSelect.contains(e.target)) {
+    options.classList.add('hidden');
+  }
+});
+
+</script>
+
+</body>
+</html>

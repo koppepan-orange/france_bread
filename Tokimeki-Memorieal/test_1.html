@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poketter_test</title>
+    <style>
+        #UIright{
+            position: fixed;
+            left: 70%px;
+            top: 65px;
+            width: 250px;
+            height:600px;
+            border-top: 2px solid blue;
+            border-bottom: 2px solid purple;
+            border-left: 2px solid blue;
+            border-right: 2px solid purple;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        #PoketterArea{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            overflow: auto;
+            padding: 2px;
+        }
+        .poket{
+            font-size: 12px;
+            border: 1px solid #000;
+            margin-bottom: 10px!important;
+            margin:0 auto;
+        }
+        .poket-img{
+            width: 40px;
+            height: 40px;
+        }
+        .img-con {
+            position: relative;
+            width: 150px; /* サムネイルの幅を指定 */
+            height: auto!important; /* サムネイルの高さを指定 */
+            overflow: hidden; /* サムネイル部分以外を隠す */
+            cursor: pointer;
+        }
+
+        .poket-img {
+            width: 300px; /* 元の画像の幅 */
+            height: auto; /* アスペクト比を維持 */
+            transform: translate(-50px, -50px); /* 切り取る部分を調整 */
+            transition: all 0.3s ease;
+        }
+
+        .img-con.active {
+            width: auto;
+            height: auto;
+        }
+
+        .img-con.active .poket-img {
+            width: 100%;
+            height: auto;
+            transform: none; /* 元の画像位置にリセット */
+        }
+
+    </style>
+</head>
+<body>
+<div id="UIright">
+    <div id="PoketterArea">
+
+    </div>
+</div>
+<button onclick="AddPoket()">add</button>
+<script>
+    const usernames = [
+        {
+            name: 'みかんコッペパン',
+            id: 'koppepan_orange',
+            sentences: ['みかんコッペパンのコッペパンです！！','はるばる..ハルバード....','1日を旧って書いてもばれない説','善処しますの最上級、<br>善処を尽くします','あ<br>い<br>し<br>て<br>す',]
+        },
+        {
+            name: 'lemonade is cat',
+            id: 'lemonade_is_cat',
+            sentences: ['ウイさんの前髪がクロスしてるとこ好き','え、グレゴリオ戦のBGM良くない？？<br>ピアノがすごいってのもあるけど<br>動機がまじで良い','立ちナギサさんの手好き','ミユさんとマンティコアさんからは似た雰囲気を感じる','<div class="img-con"><img src="midori.png" class="poket-img"></div><br>何その目？！<br>ねえ！！<br>何その目？？！！']
+        },
+        {
+            name: '†漆黒の堕天使†',
+            id: 'angel_of_darkness',
+            sentences: ['我は「漆黒の堕天使」！！<br>名は無い...','いでよ..<br>漆黒のダークネスネロブラックドラゴン....!!!','秘密結社ダークリユ...世界は滅びる！！！','片翼の翼','']
+        }
+    ]
+    PArea = document.getElementById('PoketterArea');
+    UIright = document.getElementById('UIright');
+    UIright.scrollTop = UIright.scrollHeight;
+    UIright.scrollLeft = UIright.scrollWidth;
+    function AddPoket(){
+        const messageElement = document.createElement('div');
+        const user = usernames[Math.floor(Math.random() * usernames.length)];
+        const text = user.sentences[Math.floor(Math.random() * user.sentences.length)];
+        messageElement.className = `poket ${user}}`;
+        messageElement.innerHTML = `<span style="font-size: 13px;">${user.name}</span><br>${text}`;
+        PArea.appendChild(messageElement);
+        PArea.scrollTop = PArea.scrollHeight;
+        UIright.scrollTop = UIright.scrollHeight;
+    }        
+    document.querySelector('.img-con').addEventListener('click', function() {
+        this.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

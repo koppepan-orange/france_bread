@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QTEシステム</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+        #battle {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            border: 2px solid white;
+            margin: 50px auto;
+            background-color: #222;
+            overflow: hidden;
+        }
+        .qte {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            font-weight: bold;
+            display: none;
+        }
+        .left { left: 50px; color: red; }
+        .right { right: 50px; color: blue; }
+    </style>
+</head>
+<body>
+    <h1>QTEテスト</h1>
+    <div id="battle">
+        <div id="qteLeft" class="qte left">←</div>
+        <div id="qteRight" class="qte right">→</div>
+    </div>
+    <p id="result">準備完了</p>
+
+    <script>
+        function startQTE() {
+            document.getElementById("result").textContent = "敵が奇襲を仕掛ける…！";
+
+            let isLeft = Math.random() < 0.5;  // 50%の確率で左右決定
+            let keyToPress = isLeft ? "ArrowLeft" : "ArrowRight";
+            let qteElement = isLeft ? document.getElementById("qteLeft") : document.getElementById("qteRight");
+            
+            qteElement.style.display = "block";
+
+            let success = false;
+            function keyHandler(event) {
+                if (event.key === keyToPress) {
+                    success = true;
+                    document.getElementById("result").textContent = "回避成功！";
+                    qteElement.style.display = "none";
+                    window.removeEventListener("keydown", keyHandler);
+                }
+            }
+
+            window.addEventListener("keydown", keyHandler);
+
+            setTimeout(() => {
+                qteElement.style.display = "none";
+                window.removeEventListener("keydown", keyHandler);
+                if (!success) {
+                    document.getElementById("result").textContent = "回避失敗… 先制攻撃を受けた！";
+                }
+            }, 500);
+        }
+
+        // テスト用に5秒後にQTEを発生させる
+        setTimeout(startQTE, 5000);
+    </script>
+</body>
+</html>

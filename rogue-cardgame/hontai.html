@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mitame.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="ShowCardInfo" class="hidden">開けたら閉めろぉぅ</div>
+    <div id="GameArea">
+        <div id="PhaseBar"></div>
+        <br><div id="log">logです</div><br><br>
+        <div id="UIzone">
+            <div id="PlayerUI">
+                <span id="PlayerName">Player</span><br>
+                <span id="PlayerShield">0</span>HP:<span id="PlayerHealth">40</span>/<span id="PlayerMaxHealth">40</span><br>
+                <span id="PlayerBuffs"><span class="buff" id="PlayerBuff"><img src="assets/buffs/none.png" class="buff-img"><span id="PlayerBuffTime"></span></span><span class="buff" id="PlayerDebuff"><img src="assets/buffs/none.png" class="buff-img"><span id="PlayerDebuffTime"></span></span></span>
+            </div>
+            <div id="PhaseUI"><span id="ShowPhase">1</span></div>
+            <div id="EnemyUI" >
+                <span id="EnemyName">Enemy</span><br>
+                HP:<span id="EnemyHealth">20</span>/<span id="EnemyMaxHealth">20</span><span id="EnemyShield">0</span><br>
+                <span id="EnemyBuffs"><span class="buff" id="EnemyBuff"><img src="assets/buffs/none.png" class="buff-img"><span id="EnemyBuffTime"></span></span><span class="buff" id="EnemyDebuff"><img src="assets/buffs/none.png" class="buff-img"><span id="EnemyDebuffTime"></span></span></span>
+            </div>
+        </div><br>  
+        <div id="NoteCardArea">
+            <div id="NoteCardA"></div>  
+            <div id="NoteCardM"></div>
+        </div>
+        <div id="PhaseStart"></div> 
+    </div>
+    <script src="moromoro.js"></script>
+</body>
+</html>

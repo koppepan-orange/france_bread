@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .image-container {
+            position: relative;
+            width: 200px; /* サムネイルの幅を指定 */
+            height: auto!important; /* サムネイルの高さを指定 */
+            overflow: hidden; /* サムネイル部分以外を隠す */
+            cursor: pointer;
+        }
+
+        .poket-img {
+            width: 300px; /* 元の画像の幅 */
+            height: auto; /* アスペクト比を維持 */
+            transform: translate(-50px, -50px); /* 切り取る部分を調整 */
+            transition: all 0.3s ease;
+        }
+
+        .image-container.active {
+            width: auto;
+            height: auto;
+        }
+
+        .image-container.active .poket-img {
+            width: 100%;
+            height: auto;
+            transform: none; /* 元の画像位置にリセット */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="image-container">
+        <img src="midori.png" class="poket-img">
+    </div>
+
+    <script>
+    document.querySelector('.image-container').addEventListener('click', function() {
+        this.classList.toggle('active');
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvasに文字を描画して斜めに動かす</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="500" height="500" style="border:1px solid black;"></canvas>
+
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        var textX = 10; // テキストの初期X座標
+        var textY = 50; // テキストの初期Y座標
+        var speed = 2; // テキストの移動速度
+        var keysPressed = {}; // 押されているキーの状態を保持するオブジェクト
+
+        function drawText() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvasをクリア
+            ctx.font = '30px Arial';
+            ctx.fillStyle = 'red';
+            ctx.fillText('Hello, World!', textX, textY);
+        }
+
+        function moveText() {
+            var dx = 0;
+            var dy = 0;
+
+            // 左右方向の移動量を計算
+            if (keysPressed['ArrowLeft']) {dx -= speed;}
+            if (keysPressed['ArrowRight']) {dx += speed;}
+
+            // 上下方向の移動量を計算
+            if (keysPressed['ArrowUp']) {dy -= speed;}
+            if (keysPressed['ArrowDown']) {dy += speed;}
+
+            // 斜め方向の移動量を計算
+            if (dx !== 0 && dy !== 0) {
+                // 対角線上の移動の場合、移動量を1/root(2)倍にする
+                var diagonalFactor = 1 / Math.sqrt(2);
+                dx *= diagonalFactor;
+                dy *= diagonalFactor;
+            }
+
+            // テキストの位置を更新
+            textX += dx;
+            textY += dy;
+
+            drawText(); // テキストを再描画
+        }
+
+        // キーボードイベントを監視
+        document.addEventListener('keydown', function(event) {
+            keysPressed[event.key] = true;
+        });
+
+        document.addEventListener('keyup', function(event) {
+            keysPressed[event.key] = false;
+        });
+
+        // テキストを定期的に移動
+        setInterval(moveText, 10);
+
+        drawText(); // 初期描画
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+@font-face{font-family:comicsans; src:url('Ldfcomicsans-jj7l.ttf');}
+*{font-family:comicsans;}
+#UItop{
+    position: fixed;
+    top: 65px;
+    left: 50%;
+    right: 50%;
+    width: 600px;
+    height: 304px;
+    border-top: 2px solid blue;
+    border-bottom: 2px solid purple;
+    border-left: 2px solid blue;
+    border-right: 2px solid purple;
+    padding: 10px;
+    text-align: left !important;/*一番優先するやつ*/
+    z-index: 1;
+}
+#TextBox{
+    position: fixed;
+    top: 392.5px;
+    left: 300px;
+    right: 300px;
+    width: 600px;
+    border-top: 2px solid blue;
+    border-bottom: 2px solid purple;
+    border-left: 2px solid blue;
+    border-right: 2px solid purple;
+    padding: 10px;
+    text-align: left !important;/*一番優先するやつ*/
+    z-index: 1;
+}
+#UIleft{
+    position: fixed;
+    left: 30%;
+    top: 65px;
+    width: 250px;
+    height:600px;
+    border-top: 2px solid blue;
+    border-bottom: 2px solid purple;
+    border-left: 2px solid blue;
+    border-right: 2px solid purple;
+    padding: 10px;
+    z-index: 1;
+}
+#UIright{
+    position: fixed;
+    left: 70%px;
+    top: 65px;
+    width: 250px;
+    height:600px;
+    border-top: 2px solid blue;
+    border-bottom: 2px solid purple;
+    border-left: 2px solid blue;
+    border-right: 2px solid purple;
+    padding: 10px;
+    z-index: 1;
+}
+#UIbottom{
+    position: fixed;
+    left: 300px;
+    right: 300px;
+    top: 515px;
+    width: 600px;
+    height:150px;
+    border-top: 2px solid blue;
+    border-bottom: 2px solid purple;
+    border-left: 2px solid blue;
+    border-right: 2px solid purple;
+    padding: 10px;
+    z-index: 1;
+}
+@media screen and (max-width: 768px) {
+    #UItop, #TextBox, #UIbottom {
+        width: 90%;
+    }
+    #UIleft, #UIright {
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #Choice1, #Choice2, #Choice3, #Choice4 {
+        width: 60%;
+    }
+}
+
+#Choice1{
+    position: fixed;
+    left: 300px;
+    right: 300px;
+    top: 200px;
+    width: 200px;
+    height:40px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    padding: 10px;
+    z-index: 100;
+}
+
+#Choice2{
+    position: fixed;
+    left: 300px;
+    right: 300px;
+    top: 250px;
+    width: 200px;
+    height:40px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    padding: 10px;
+    z-index: 100;
+}
+#Choice3{
+    position: fixed;
+    left: 300px;
+    right: 300px;
+    top: 300px;
+    width: 200px;
+    height:40px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    padding: 10px;
+    z-index: 100;
+}
+#Choice4{
+    position: fixed;
+    left: 300px;
+    right: 300px;
+    top: 350px;
+    width: 200px;
+    height:40px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    padding: 10px;
+    z-index: 100;
+}
+.Choice:hover, .btn_design:focus, .btn_design:active {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Audio Player */
+#audioPlayer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #NowMusicName {
+        text-align: center;
+    }
+    #controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .controlBtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+    }
+    .controlBtn img {
+        width: 50px;
+        height: 50px;
+    }
+    #progressContainer {
+        width: 300px;
+        height: 10px;
+        background-color: #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+    }
+    #progressBar {
+        height: 100%;
+        background-color: #0095DD;
+        width: 0;
+        transition: width 0.1s;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }

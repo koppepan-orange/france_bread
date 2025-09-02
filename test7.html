@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コピー機能</title>
+    <style>
+        #copyableDiv {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            user-select: none; /* ユーザーによる選択を防ぐ */
+        }
+    </style>
+</head>
+<body>
+    <div id="copyableDiv">この内容をコピーします。</div>
+    <button id="copyButton">コピー</button>
+
+    <script>
+        document.getElementById('copyButton').addEventListener('click', function() {
+            const div = document.getElementById('copyableDiv');
+            const range = document.createRange();
+            range.selectNode(div); // divの内容を選択
+            window.getSelection().removeAllRanges(); // 以前の選択をクリア
+            window.getSelection().addRange(range); // 新しい範囲を選択
+            
+            try {
+                const successful = document.execCommand('copy'); // コピーコマンドを実行
+                const msg = successful ? 'テキストがコピーされました！' : 'コピーに失敗しました。';
+                alert(msg);
+            } catch (err) {
+                alert('コピー中にエラーが発生しました。');
+            }
+
+            window.getSelection().removeAllRanges(); // 選択をクリア
+        });
+    </script>
+</body>
+</html>

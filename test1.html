@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>sample</title>
+    <style>
+        .AllSentences{text-align:center;}
+    </style>
+</head>
+<body class="AllSentences">
+    <p>sample</p>
+    <button onclick="lot()">抽選</button><br>
+    <span id="lot"></span>
+    <br><span id="keihin"></span>
+    <br><br><br>
+    <span id="nanika"></span>
+<script>
+    function lot() {
+    const data = {
+        'UR': 5,  // 5%     ウルトラレア
+        'SSR': 10,  // 10%  スーパーすごいレア
+        'SR': 20, // 20%    すごいレア
+        'R': 27, // 27%     レア
+        'N': 35, // 35%     ノーマル
+        'GS': 3, // 3%      ガチ粗品
+    } //くじの仕組み
+    const rand = Math.floor(Math.random() * 100)
+    let result = 'error'
+    let rate = 0
+    for (const prop in data) {
+        rate += data[prop]
+        if (rand <= rate) {
+        result = prop
+        break
+        }
+    }
+    document.getElementById('lot').textContent = result
+
+    // 景品受け取り口
+    let URkeihin = ['アルレッキーノ','ブダミンゴ','青のリバースカード','火竜の逆鱗']
+    let SSRkeihin = ['黄金の床','5000¢','魔界の主役は我々だ! 2巻','ワイヤレスイヤホンの右','ダイヤのJカード']
+    let SRkeihin = ['ベノム 2巻','ジャムの乗ったクッキー','猫さんのぬいぐるみ','千載一遇カード','ルイージのAmibo']
+    let Rkeihin = ['バッグ・クロージャー','tyoeCのコードをUSBのコードに変換する装置','透明な丸いアクリル']
+    let Nkeihin = ['その辺に落ちてたくし','色付きガラスのかけら','アイロンビーズで作った剣','日焼け止め']
+    let GSkeihin = ['ベノム 1巻','赤のスキップカード','雌火竜の逆鱗','魔界の主役は我々だ! 19巻','ワイヤレスイヤホンの左','ハートのエースカード']
+    let x = 0;  
+    switch(result) {
+        case 'UR':
+            x = URkeihin[Math.floor(Math.random() * URkeihin.length)]
+            document.getElementById('keihin').textContent = x
+            URkeihin.splice(URkeihin.indexOf(x), 1);
+            break;
+        case 'SSR':
+            x = SSRkeihin[Math.floor(Math.random() * SSRkeihin.length)]
+            document.getElementById('keihin').textContent = x
+            SSRkeihin.splice(SSRkeihin.indexOf(x), 1);
+            break;
+        case 'SR':
+            x = SRkeihin[Math.floor(Math.random() * SRkeihin.length)]
+            document.getElementById('keihin').textContent = x
+            SRkeihin.splice(SRkeihin.indexOf(x), 1);
+            break;
+        case 'R':
+            x = Rkeihin[Math.floor(Math.random() * Rkeihin.length)]
+            document.getElementById('keihin').textContent = x
+            Rkeihin.splice(Rkeihin.indexOf(x), 1);
+            break;
+        case 'N':
+            x = Nkeihin[Math.floor(Math.random() * Nkeihin.length)]
+            document.getElementById('keihin').textContent = x
+            Nkeihin.splice(Nkeihin.indexOf(x), 1);
+            break;
+        case 'GS':
+            x = GSkeihin[Math.floor(Math.random() * GSkeihin.length)]
+            document.getElementById('keihin').textContent = x
+            GSkeihin.splice(GSkeihin.indexOf(x), 1);
+            break;
+    }
+
+    return result
+    // 1等や2等などを設定した確率で表示
+    }
+</script>
+</body>
+</html>

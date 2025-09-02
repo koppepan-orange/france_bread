@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span id="Koumoku"></span>
+    <input type="text" id="InputText" placeholder="text(cut by ,)" /><input type="text" id="InputMount" size="8" placeholder="interval(s)"><button onclick="start()" id="startbutton">start</button>
+</body>
+<script>
+    let x
+    let koumoku = [];
+    let interval = 1000;
+    function delay(ms) {return new Promise(resolve => setTimeout(resolve, ms));} // 遅延
+    async function start(){
+        if(!interval == ''){
+            interval =  document.getElementById('InputMount').value;
+            interval *= 1000;
+            koumoku = document.getElementById('InputText').value.split(',');
+            document.getElementById('InputText').value = '';
+            document.getElementById('InputText').style.display = 'none';
+            document.getElementById('InputMount').value = '';
+            document.getElementById('InputMount').style.display = 'none';
+            document.getElementById('startbutton').style.display = 'none';
+            document.getElementById('Koumoku').style.display = 'inline';
+            for(x = 0; x < koumoku.length; x++){
+            document.getElementById('Koumoku').textContent = koumoku[x];
+            await delay(interval);
+            }
+            document.getElementById('InputText').style.display = 'inline';
+            document.getElementById('InputMount').style.display = 'inline';
+            document.getElementById('startbutton').style.display = 'inline';
+            document.getElementById('Koumoku').style.display = 'none';
+        }
+    }
+</script>
+</html>

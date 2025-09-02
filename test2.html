@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>clicker of mugen</title>
+  <html lang="ja">
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style id="ButtonStyle">
+    .button{
+      border: 2px solid #ff7373;
+      padding: 2px 3px;background: #fcffc0;
+      cursor: pointer;}input[type="text"]:focus{border: 2px solid #ff7373;padding: 2px 3px;background: #fcffc0;
+    }
+    #All{
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div id="All">
+  <span id="Euro">euro:0€</span><br>
+  <span>turn:</span><span id="TurnCount">0</span><br>
+  <span id="EnemyFriendBack"></span>
+  <b id="EnemyName">enemy</b>   <i>Lv.</i><i id="EnemyLevel">1</i><br>
+  <span id="EnemyHealth">0</span>/<span id="EnemyMaxHealth">0</span>
+  <span id="EnemyFriendFront"></span><br>
+  <span id="EnemyBuff"></span> <span id="EnemyDebuff"></span><br><br>
+  <span id="PlayerFriendFront"></span>
+  <b id="PlayerName">player</b>   <i>Lv.</i><i id="PlayerLevel">1</i>  <span id="AdditionalPlayerPoint"></span><br>
+  <span id="PlayerHealth">0</span>/<span id="PlayerMaxHealth">0</span><br>
+  <span id="PlayerMP">0</span>/<span id="PlayerMaxMP">0</span><br>
+  <span id="PlayerBuff"></span> <span id="PlayerDebuff"></span><br><br><br>
+  <span id="PlayerFriendBack"></span>
+  <button class="button" id="select1" onclick="Select1()">attack</button>  <button class="button" id="select2" onclick="Select2()">magic</button>  <button class="button" id="select3" onclick="Select3()">tools</button>  <button class="button" id="select4" onclick="Select4()">runaway</button><br>
+  <button id="SkillCoolDown" class="button" onclick="skillact()">skill</button><br>
+  <span align="center" id="log"></span>
+</div>
+<script>
+  let playername = 'no name';
+  let enemyname = 'no name';
+  let phase = 1;
+  const select1 = document.getElementById('select1');
+  const select2 = document.getElementById('select2');
+  const select3 = document.getElementById('select3');
+  const select4 = document.getElementById('select4');
+
+  let attacks = ['slash','double slash','slash of light'];
+  let magics = ['heal','power','thunder'];
+  let tools = ['Aspirin','ThrowKnife','Redcard'];
+  function Select1(){
+    switch(phase){
+      case 1:  
+        phase = 2;
+        select1.textContent = attacks[0];
+        select2.textContent = attacks[1];
+        select3.textContent = attacks[2];
+        select4.textContent = 'back';
+        break;
+      case 2:
+        AttackPrepare(1);
+        break;
+      case 3:
+        MagicPrepare(1);
+        break;
+      case 4:
+        ToolPrepare(1);
+        break;
+      default:
+        break;
+    }
+  }
+  function Select2(){
+    switch(phase){
+      case 1:  
+        phase = 3;
+        select1.textContent = magics[0];
+        select2.textContent = magics[1];
+        select3.textContent = magics[2];
+        select4.textContent = 'back';
+        break;
+      case 2:
+        AttackPrepare(2);
+        break;
+      case 3:
+        MagicPrepare(2);
+        break;
+      case 4:
+        ToolPrepare(2);
+        break;
+      default:
+        break;
+    }
+  }
+  function Select3(){
+    switch(phase){
+      case 1:  
+        phase = 4;
+        select1.textContent = tools[0];
+        select2.textContent = tools[1];
+        select3.textContent = tools[2];
+        select4.textContent = 'back';
+        break;
+      case 2:
+        AttackPrepare(3);
+        break;
+      case 3:
+        MagicPrepare(3);
+        break;
+      case 4:
+        ToolPrepare(3);
+        break;
+      default:
+        break;
+    }
+  }
+  function Select4(){
+    switch(phase){
+      case 1:  
+        //本来逃げる動き
+        break;
+      case 2:
+        phase = 1;
+        select1.textContent = 'attack';
+        select2.textContent = 'magic';
+        select3.textContent = 'tools';
+        select4.textContent = 'runaway';
+        break;
+      case 3:
+        phase = 1;
+        select1.textContent = 'attack';
+        select2.textContent = 'magic';
+        select3.textContent = 'tools';
+        select4.textContent = 'runaway';
+        break;
+      case 4:
+        phase = 1;
+        select1.textContent = 'attack';
+        select2.textContent = 'magic';
+        select3.textContent = 'tools';
+        select4.textContent = 'runaway';
+        break;
+      default:
+        break;
+    }
+  }
+  function AttackPrepare(){
+    
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sound play test</title>
+</head>
+<body>
+    <p align="center">
+        <button onclick="soundplay1()">1</button>
+        <button onclick="start()">2</button>
+        <p id="log"></p>
+    <script>
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        } // 遅延やってみたかったの
+        const audio = new Audio('voice1.mp3');
+        const audio2 = new Audio('voice3.mp3');
+        const audio3 = new Audio('voice2.mp3');
+        function soundplay1(){
+            audio.play();
+        }
+        async function start(){
+            document.getElementById("log").textContent = "スタート！";
+            await delay(1000);
+            document.getElementById("log").textContent = "1秒後に音を鳴らします。";
+            await delay(1000);
+            document.getElementById("log").textContent = "声を出すな";
+            audio2.play();
+            await delay(1000);
+            document.getElementById('log').textContent = "サンキュ";
+            audio3.play();
+        }
+        function play(){
+            audio.play();
+        }
+
+    </script>
+</body>
+</html>

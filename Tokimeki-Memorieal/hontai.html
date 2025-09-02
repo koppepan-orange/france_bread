@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dating games</title>
+  <link rel="stylesheet" href="mitame.css">
+</head>
+<body>
+  <style id="ButtonStyle"></style>
+  <hr noshade="true"><br>
+  <span id="SuguKieru"><input id="InputPlayername" type="text" placeholder="white here name"><br></span>
+  <div id="GameZone">
+    <div id="TextBox">
+      <span id="CharacterName">コッペくん</span>
+      <br><span id="serif1">名前を入力して始めてね！</span>
+      <br><span id="serif2">まあ、でも入力しなくてもいいよ！</span>
+      <br><span id="serif3">その場合"あなた"になるのぜ！！</span>
+    </div>
+    <div id="UItop">top desu</div><!--ここに立ち絵とか入るかも-->
+    <div id="UIleft">left desu</div><!--情報とか載せる予定-->
+    <div id="UIright"></div><!--ここはスマホ画面っぽくする予定-->
+    <div id="UIbottom">
+            <div id="audioPlayer" align="left">
+                <div id="NowMusicName">ツイッターランド/STEAKA-初音ミク</div>
+                <div id="controls">
+                    <button id="prevBtn" class="controlBtn"><img src="assets/button_prev.png" class="controlBtnImg" alt="Previous"></button>
+                    <button id="playPauseBtn" class="controlBtn"><img id="playPauseImg" src="assets/button_play.png" class="controlBtnImg" alt="Play"></button>
+                    <button id="nextBtn" class="controlBtn"><img src="assets/button_next.png" class="controlBtnImg" alt="Next"></button>
+                    <button id="muteBtn" class="controlBtn"><img id="muteImg" src="assets/button_unmute.png" class="controlBtnImg" alt="Mute"></button>
+                </div>
+                <div id="progressContainer"><div id="progressBar"></div></div>
+            </div>
+            <audio id="audio" src="musics/music1.mp3"></audio>
+        </div><!--ここにはBGM選択機能とか入れたい。もう何が元か何かわかるっしょ あと一週間もしたら出るから待ってな-->
+    <div id="Choicese"></div>
+  </div>
+  <script src="nakami.js"></script>
+</body>
+</html>

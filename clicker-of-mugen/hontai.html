@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>clicker of mugen</title>
+  <html lang="ja">
+  <meta charset="UTF-8">
+  <link rel="icon" href="icon.ico">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <link rel="stylesheet" href="mitame.css">
+  <style id="ButtonStyle"></style>
+</head>
+<body>
+<div id="All">
+<button id="Notice-button" onclick="OpenNotice()"><img id="Notice-button-img" src="assets/icons/notice.png"></button><div id="Notice-page"></div>
+<div class="rank-euro-zone">
+  <div class="rank">Rank: <span id="rank">1</span></div>
+  <div class="rpt-bar-container">
+      <div class="rpt-bar" id="rpt-bar"></div>
+      <div class="rpt-text">EXP: <span id="rpt-text">0/100</span></div>
+  </div>
+  <div class="euro">Euro:<span id="euro">500</span> <button id="GetEuro" onclick="if(afknow == 0){LetsCharge();}">+</button></div>
+</div>
+<div id="GameZone">
+  <div id="HomeTab">
+    <canvas id="NowMap" width="600" height="600" style="border:1px solid #000000"></canvas>
+    <div id="HomeArea"></div>
+    <div id="GameArea">
+      <span>turn:</span><span id="TurnCount">0</span><br>
+      <div id="enemies">
+        <div id="enemy1" class="enemy">
+          <b id="EnemyName">古書館の魔術師</b>   <i id="EnemyLevel">Lv.24</i><br>
+          <span id="EnemyHealth">100</span>/<span id="EnemyMaxHealth">100</span><br>
+          <span id="EnemyMP">20</span>/<span id="EnemyMaxMP">20</span><br>
+          <span id="EnemyBuff"></span> <span id="EnemyDebuff"></span>
+        </div>
+        <div id="enemy2" class="enemy">
+          <b id="EnemyName">読書マニアな司書</b>   <i id="EnemyLevel">Lv.22</i><br>
+          <span id="EnemyHealth">100</span>/<span id="EnemyMaxHealth">100</span><br>
+          <span id="Ene myMP">20</span>/<span id="EnemyMaxMP">20</span><br>
+          <span id="EnemyBuff"></span> <span id="EnemyDebuff"></span>
+        </div>  
+        <div id="enemy3" class="enemy">
+          <b id="EnemyName">忍び寄るナース</b>   <i id="EnemyLevel">Lv.23</i><br>
+          <span id="EnemyHealth">100</span>/<span id="EnemyMaxHealth">100</span><br>
+          <span id="EnemyMP">20</span>/<span id="EnemyMaxMP">20</span><br>
+          <span id="EnemyBuff"></span> <span id="EnemyDebuff"></span>
+        </div>
+        <div id="enemy4" class="enemy">
+          <b id="EnemyName">「救護」のプロ</b>   <i id="EnemyLevel">Lv.24</i><br>
+          <span id="EnemyHealth">100</span>/<span id="EnemyMaxHealth">100</span><br>
+          <span id="EnemyMP">20</span>/<span id="EnemyMaxMP">20</span><br>
+          <span id="EnemyBuff"></span> <span id="EnemyDebuff"></span>
+        </div>
+      </div>
+      <br><br>
+
+      <div id="players">
+        <div id="player1" class="player">
+          <b id="PlayerName">mechanic</b>   <i id="PlayerLevel">Lv.23</i><br>
+          <span id="PlayerHealth">100</span>/<span id="PlayerMaxHealth">100</span><br>
+          <span id="PlayerMP">0</span>/<span id="PlayerMaxMP">0</span><br>
+          <span id="PlayerBuff"></span> <span id="PlayerDebuff"></span>
+        </div>
+        <div id="player2" class="player">
+          <b id="PlayerName">friend1</b>   <i id="PlayerLevel">Lv.23</i><br>
+          <span id="PlayerHealth">100</span>/<span id="PlayerMaxHealth">100</span><br>
+          <span id="PlayerMP">0</span>/<span id="PlayerMaxMP">0</span><br>
+          <span id="PlayerBuff"></span> <span id="PlayerDebuff"></span>
+        </div>
+        <div id="player3" class="player">
+          <b id="PlayerName">friend2</b>   <i id="PlayerLevel">Lv.23</i><br>
+          <span id="PlayerHealth">100</span>/<span id="PlayerMaxHealth">100</span><br>
+          <span id="PlayerMP">0</span>/<span id="PlayerMaxMP">0</span><br>
+          <span id="PlayerBuff"></span> <span id="PlayerDebuff"></span>
+        </div>
+        <div id="player4" class="player">
+          <b id="PlayerName">friend3</b>   <i id="PlayerLevel">Lv.23</i><br>
+          <span id="PlayerHealth">100</span>/<span id="PlayerMaxHealth">100</span><br>
+          <span id="PlayerMP">0</span>/<span id="PlayerMaxMP">0</span><br>
+          <span id="PlayerBuff"></span> <span id="PlayerDebuff"></span>
+        </div>
+      </div><br><br><br>
+      <button class="button" id="select1" onclick="select1()">attack</button>  <button class="button" id="select2" onclick="select2()">magic</button>  <button class="button" id="select3" onclick="select3()">tools</button>  <button class="button" id="back" onclick="back()">pass</button><br>
+      <span id="Skillbutton"><button class="button" id="Skill1" onclick="Skill1()">skill</button></span>
+    </div>
+    <div id="InventoryArea"></div>
+    <div id="EventArea"></div>
+    <br><span align="center" id="log"></span>
+  </div>
+  <div id="InventoryTab">
+    
+  </div>
+  <div id="QuestTab"><div id="quest-list"></div></div><!--ここはできれば作りたいね 報酬とかどうしよ-->
+  <div id="ChatTab">
+    <div class="chat-container" id="chat-container">
+    <select id="room-select" name="room-select" onchange="selectRoom()">
+       <option value="1">01</option>
+       <option value="2">02</option>
+       <option value="3">03</option>
+       <option value="4">04</option>
+       <option value="5">05</option>
+       <option value="cs">カスタマーサービス</option>
+    </select>
+    <div class="messages" id="messages"></div>
+    <input type="text" id="message-input" placeholder="メッセージを書く">
+    <button id="send-button">送信</button>
+ </div></div><!--ここは理想。firebaseとかを勉強したらここは解放しましょ-->
+  <div id="ProfileTab"></div><!--ここは..ゲーム自体をちゃんとオンライン化したら解放で-->
+</div>
+<div id="TabZone">
+  <button id="HomeTabButton" onclick="OpenTab('H')"><img class="TabImg" src="assets/icons/home.png"></button>
+  <button id="InventoryTabButton" onclick="OpenTab('I')"><img class="TabImg" src="assets/icons/inventory.png"></button>
+  <button id="QuestTabButton" onclick="OpenTab('Q')"><img class="TabImg" src="assets/icons/quest.png"></button>
+  <button id="ChatTabButton" onclick="OpenTab('C')"><img class="TabImg" src="assets/icons/chat.png"></button>
+  <button id="ProfileTabButton" onclick="OpenTab('P')"><img class="TabImg" src="assets/icons/profile.png"></button>
+</div>
+</div>  
+<script src="nakami.js"></script>
+</body>
+</html>
+<br><br><br><br><br>
