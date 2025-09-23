@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>右の方にカーソルやるとうにょ〜ん君</title>
+    <style>
+        #right{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 35%;
+            height: 100%;
+            padding: 10px;
+            background: #f0f8ff;
+            border-left: 5px solid #cfe9ff;
+            position: fixed;
+            right: -35%;
+            top: 0;
+            transition: right 0.5s ease;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div id="right"></div>
+    <script>
+    let rightD = document.getElementById('right');
+    (function(){
+      const THRESHOLD = 1 - 0.35; // 右35% => 左から65%より右側ならゾーン内
+      let lastX = null;
+      let rafScheduled = false;
+      let inZone = false;
+
+      // ここに入ったとき/出たときの処理を書く
+      function onEnter(){
+        rightD.style.right = '0';
+      }
+      function onLeave(){
+        rightD.style.right = '-35%';
+      }
+
+      function process(){
+        rafScheduled = false;
+        if (lastX === null) return;
+        const vw = window.innerWidth || document.documentElement.clientWidth;
+        const ratio = lastX / vw;
+        if (!inZone && ratio > THRESHOLD){
+          inZone = true;
+          onEnter();
+        } else if (inZone && ratio <= THRESHOLD){
+          inZone = false;
+          onLeave();
+        }
+      }
+
+      // pointermove はマウスだけでなくタッチ/ペンも拾う。必要なければ mousemove に変えて
+      window.addEventListener('pointermove', (e) => {
+        lastX = e.clientX;
+        if (!rafScheduled){
+          rafScheduled = true;
+          requestAnimationFrame(process);
+        }
+      }, {passive:true});
+
+      // ウィンドウサイズ変化で閾値が相対的に変わるから、一応現在位置で再評価
+      window.addEventListener('resize', () => {
+        // 再評価したいなら lastX をそのまま処理キューへ
+        if (!rafScheduled){
+          rafScheduled = true;
+          requestAnimationFrame(process);
+        }
+      });
+
+      // オプション：初期状態判定（ページ読み込み時にカーソルが右にいる可能性がある）
+      document.addEventListener('DOMContentLoaded', () => {
+        // cursor を直接読めないブラウザもあるから無理やりはしない。pointermove が来るのを待て。
+      });
+    })();
+
+        
+    </script>
+</body>
+</html>

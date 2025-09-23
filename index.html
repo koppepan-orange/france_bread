@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Welcome to...</title>
+    <link rel="stylesheet" href="https://koppepan-orange.github.io/game-site/origin.css">
+    <style>
+        @font-face {font-family: hangyaku;src: url(fonts/assets/hangyaku.ttf);}
+        @font-face {font-family: comicsans;src: url(fonts/assets/comicsans.ttf);}
+        @font-face {font-family: papyrus;src: url(fonts/assets/papyrus.ttf);}
+        @font-face {font-family: pricedown;src: url(fonts/assets/pricedown.ttf);}
+        @font-face {font-family: cube12;src: url(fonts/assets/cube12.ttf);}
+        @font-face {font-family: kurobara;src: url(fonts/assets/kurobara.ttf);}
+        @font-face {font-family: marukoius;src: url(fonts/assets/marukoius.ttf);}
+        body{
+            background-color: #f6fff2;
+            overflow-x: hidden;
+        }
+        #main{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #title{
+            margin: 10px auto;
+            font-size: 26px;
+            font-family: kurobara;
+            text-decoration: underline dotted;
+            text-decoration-color: #b6e3a5;
+        }
+        #links{
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #eeffe7;
+            overflow-y: scroll;
+        }
+        #links a{
+            margin-top: -2px;
+            padding: 5px 15px;
+            border: 2px solid #ddffd0;
+            text-decoration: none;
+            font-size: 20px;
+            color: #0f3300;
+            font-family: cube12, marukoius;
+        }
+
+        #right{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 35%;
+            height: 100%;
+            padding: 10px;
+            background: #f0f8ff;
+            border-left: 5px solid #cfe9ff;
+            position: fixed;
+            right: -35%;
+            top: 0;
+            transition: right 0.5s ease;
+            box-sizing: border-box;
+        }
+        #right.open{
+            right: 0;
+        }
+        #right .toggle{
+            width: calc(10% - 2px);
+            height: 100%;
+            background: #cfe9ff;
+            position: absolute;
+            left: calc(-10% + 2px);
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+
+  <div id="movableDescription"></div>
+  <div id="log" style="display: none;">
+    <div class="opener"><</div>
+    <div class="log"></div>
+  </div>
+  <div id="text"></div>
+
+
+    <div id="main">
+        <div id="title" data-description="おもちゃ箱感覚で漁ってくれ">没とかtestとか。</div>
+        <div id="links">
+        </div>
+    </div>
+
+    <div id="right">
+        <div class="toggle"></div>
+        <a href="https://koppepan-orange.github.io/test-site/home.html">test-site</a>
+        <a href="https://koppepan-orange.github.io/game-site/">game-site</a>
+    </div>
+    
+    <script src="https://koppepan-orange.github.io/game-site/origin.js"></script>
+    <script defer>
+        //#region right panel
+        let rightD = document.getElementById('right');
+        let rightC = {
+        togD: rightD.querySelector('.toggle'),
+        opened: false
+        }
+        rightC.togD.addEventListener('click', () => {
+        rightD.classList.toggle('open');
+        rightC.opened = !rightC.opened;
+        });
+        //#endregion right panel
+
+        //#region links
+        let linkD = document.getElementById('links');
+        let linkC = {};
+        linkC.Links = [
+            {
+                name:"@'sレース",
+                url:'at_race/'
+            },
+            {
+                name:"auto oto derukana test",
+                url:'autoOto/'
+            },
+            {
+                name:"blackjack(単体)",
+                url:'blackjack_desu/'
+            },
+            {
+                name:"暇な時にデスクトップで遊ぶやつ",
+                url:'boaringMac/'
+            },
+            {
+                name:"cat's drink shop",
+                url:'cats_drink_shop/'
+            },
+            {
+                name:"clicker of mugen(notおすすめ)",
+                url:'clicker-of-mugen/'
+            },
+            {
+                name:"clicker of mugen dungeon(notおすすめ2)",
+                url:'clicker-of-mugen-dungeon/'
+            },
+            {
+                name:"農業ゲーム！ カジノもあるよ！",
+                url:'farm-game/'
+            },
+            {
+                name:"fontで！遊ぼう！！",
+                url:'fonts/'
+            },
+            {
+                name:"論理回路 De Fight",
+                url:'LogueTheKairou-X/'
+            },
+            {
+                name:"meibo(wip)",
+                url:'meibo/'
+            },
+            {
+                name:"poker(カス)",
+                url:'poker/'
+            },
+            {
+                name:"2048ゲーム..のようなもの(完パク)",
+                url:'puz_paku/'
+            },
+            {
+                name:"普通の文章からコマンドを実行させよう！",
+                url:'read_execute/',
+                desc:"とあるゲームのシステムを見て、/nは？？お前天才か？？/nとなり勢いで作ったもの/n何のゲームかは絶対に言わん"
+            },
+            {
+                name:"ファントムローズスカーレット..のようなもの(wip)(notおすすめ)",
+                url:'rogue-cardgame/'
+            },
+            {
+                name:"clicker of mugen(iroiro chara iruo)",
+                url:'clicker-of-mugen-iroiro/'
+            },
+            {
+                name:"clicker of mugen(1 vs many noyatsu)",
+                url:'clicker-of-mugen-many/'
+            },
+            {
+                name:"clicker of mugen(hutsuu)",
+                url:'clicker-of-mugen-normal/',
+                desc:"バグがないのでおすすめです。/nでもまあw要素も少ないっすけどねww"
+            },
+            {
+                name:"clicker of mugen(shumi shumi punch)",
+                url:'clicker-of-mugen-ura/'
+            },
+            {
+                name:"スプリクトシートってな〜に？こ〜れ！",
+                url:'scriptSheet-test/'
+            },
+            {
+                name:"散歩ゲーム(notおすすめ)",
+                url:'stroll_game/'
+            },
+            {
+                name:"すごろく〜 さいころの動きにちゅーもく",
+                url:'sugo-rock'
+            },
+            {
+                name:"私は現実的なメモにときめきます。",
+                url:'Tokimeki-Memoreal'
+            },
+            {
+                name:"↑の原型",
+                url:'UI_de_asobou/'
+            },
+            {
+                name:"人狼ゲーム online(wip)",
+                url:'wolf_game/'
+            },
+            {
+                name:"chat dekitara iinatte yatsu",
+                url:'chat_dekitara_iina_site.html'
+            },
+            {
+                name:"danmaku test",
+                url:'danmaku_test.html'
+            },
+            {
+                name:"JINE?",
+                url:'jine.html'
+            },
+            {
+                name:"katakana random",
+                url:'カタカナランダム生成器.html'
+            },
+            {
+                name:"Mr. Jun",
+                url:'順に表示する君、略してジュン君.html'
+            },
+            {
+                name:"原初の悪魔 †sentence1†",
+                url:'sentence1.html',
+                desc:"私が最初に書いたコードです/n見返すと馬鹿みて〜なコードだけど/nそれでも/n良いな〜って..思う。"
+            },
+        ]
+        for(let l of linkC.Links){
+            let a = document.createElement('a');
+            a.href = l.url;
+            a.textContent = l.name;
+            if(l.desc) a.dataset.description = l.desc;
+            linkD.appendChild(a);
+        }
+        linkC.tests = 11;
+        for(let i = 1; i < linkC.tests+1; i++){
+            let a = document.createElement('a');
+            a.href = `test${i}.html`;
+            a.textContent = `test${i}`;
+            linkD.appendChild(a);
+        }
+
+        //#region links
+    </script>  
+</body>
+</html>
