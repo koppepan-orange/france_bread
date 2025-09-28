@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ミニタワーディフェンス</title>
+<style>
+    body { margin: 0; background: #111; display: flex; justify-content: center; }
+    canvas { background: #222; margin-top: 20px; }
+</style>
+</head>
+<body>
+<canvas id="game" width="600" height="400"></canvas>
+<script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+
+    // 敵とタワーの配列
+    let enemies = [];
+    let towers = [];
+    let bullets = [];
+
+    // マップの敵ルート（単純に左→右）
+    const pathY = 200;
+
+    // クリックでタワー設置
+    canvas.addEventListener("click", e => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    towers.push({x, y, range: 80, cooldown: 0});
+    });
+
+    // 敵を定期的に生成
+    setInterval(() => {
+    enemies.push({x: 0, y: pathY, hp: 30, speed: 1});
+    }, 2000);
+
+    function update() {
+    // 敵移動
+    enemies.forEach(e => { e.x += e.speed; });
+
+    // タワーの攻撃処理
+    towers.forEach(t => {
+        if(t.cooldown > 0) t.cooldown--;
+        else {
+            let target = enemies.find(e => {
+                const dx = e.x - t.x, dy = e.y - t.y;
+                return Math.sqrt(dx*dx + dy*dy) < t.range;
+            });
+            if (target) {
+                bullets.push({x: t.x, y: t.y, tx: target, speed: 4});
+                t.cooldown = 50; // クールダウン
+            }
+        }
+    });
+
+    // 弾の移動
+    bullets.forEach(b => {
+        const dx = b.tx.x - b.x, dy = b.tx.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 5) { b.tx.hp -= 10; b.hit = true; }
+        else { b.x += (dx/dist) * b.speed; b.y += (dy/dist) * b.speed; }
+    });
+
+    // 消去処理
+    enemies = enemies.filter(e => e.hp > 0 && e.x < canvas.width);
+    bullets = bullets.filter(b => !b.hit);
+
+    draw();
+    requestAnimationFrame(update);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 敵
+        ctx.fillStyle = "red";
+        // enemies.forEach(e => ctx.fillRect(e.x-10, e.y-10, 20, 20));
+        for(let e of enemies) {
+            ctx.fillRect(e.x-10, e.y-10, 20, 20);
+        }
+
+        // タワー
+        ctx.fillStyle = "cyan";
+        // towers.forEach(t => ctx.beginPath(), ctx.arc(t.x, t.y, 10, 0, Math.PI*2), ctx.fill());
+        for(let t of towers) {
+            ctx.beginPath();
+            ctx.arc(t.x, t.y, 10, 0, Math.PI*2);
+            ctx.fill();
+        }
+
+        // 弾
+        ctx.fillStyle = "yellow";
+        // bullets.forEach(b => ctx.fillRect(b.x-3, b.y-3, 6, 6));
+        for(let b of bullets) {
+            ctx.fillRect(b.x-3, b.y-3, 6, 6);
+        }
+    }
+
+    update();
+</script>
+</body>
+</html>
