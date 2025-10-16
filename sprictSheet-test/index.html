@@ -32,6 +32,7 @@
                 right2:[860,0,190,190],
             },
         };
+        let angle = 0;
         function delay(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
         addEventListener('keydown', async(event) => {
             switch(event.key){
@@ -79,6 +80,27 @@
         spriteSheet.onload = function(){
             drawSprite(...images.player.front,0,0,300,300);
         }
+
+
+        const rabirabi = new Image();
+        rabirabi.src = 'rabbit.png';  // 画像パスを指定
+
+        images.rabbit = {};
+        for(let i=0;i<10;i++){
+            let widd = 512;
+            images.rabbit[i] = [widd*i,0,widd,widd];
+        }
+        console.log(images.rabbit);
+
+        addEventListener('keydown', async(event) => {
+            if(event.key != 'z') return;
+            for(i=0;i<10;i++){
+                console.log(i, images.rabbit[i]);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                ctx.drawImage(rabirabi, ...images.rabbit[i], 0, 0, canvas.width, canvas.height); 
+                await delay(100);
+            }
+        })
     </script>
 </body>
 </html>
