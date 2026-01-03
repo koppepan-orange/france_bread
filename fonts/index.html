@@ -4,25 +4,6 @@
 </head>
 <body>
     <style>
-        @font-face{src:url('assets/comicsans.ttf');font-family:comicsans;}
-        @font-face{src:url('assets/papyrus.ttf');font-family:papyrus;}
-        @font-face{src:url('assets/hangyaku.ttf');font-family:hangyaku;}
-        @font-face{src:url('assets/cube12.ttf');font-family:cube12;}
-        @font-face{src:url('assets/craft.otf');font-family:craft;}
-        @font-face{src:url('assets/genjuu.ttf');font-family:genjuu;}
-        @font-face{src:url('assets/kaimetsu.otf');font-family:kaimetsu;}
-        @font-face{src:url('assets/hackgen.ttf');font-family:hackgen;}
-        @font-face{src:url('assets/wingdings.ttf');font-family:wingdings;}
-        @font-face{src:url('assets/wingdings2.ttf');font-family:wingdings2;}
-        @font-face{src:url('assets/wingdings3.ttf');font-family:wingdings3;}
-        @font-face{src:url('assets/webdings.ttf');font-family:webdings;}
-        @font-face{src:url('assets/kurundeco.otf');font-family: kurundeco;}
-        @font-face{src:url('assets/starrysky.otf');font-family: starrysky;}
-        @font-face{src:url('assets/kurobara.ttf');font-family: kurobara;}
-        @font-face{src:url('assets/marukoius.ttf');font-family: marukoius;}
-        @font-face{src:url('assets/novamono.ttf');font-family: novamono;}
-        @font-face{src:url('assets/pricedown.ttf');font-family: pricedown;}
-        @font-face{src:url('assets/corporate.otf');font-family: corporate;}
 
         #kokodayo{
             width: 98%;
@@ -32,28 +13,97 @@
             font-family: default;
         }
     </style>
-    <select id="change" onchange="document.querySelector('#kokodayo').style.fontFamily=document.querySelector('#change').value">
-        <option value="default">default</option>
-        <option value="comicsans">comicsans</option>
-        <option value="papyrus">papyrus</option>
-        <option value="hangyaku">hangyaku</option>
-        <option value="cube12">cube12</option>
-        <option value="craft">craft</option>
-        <option value="genjuu">genjuu</option>
-        <option value="kaimetsu">kaimetsu</option>
-        <option value="hackgen">hackgen</option>
-        <option value="kurundeco">kurundeco</option>
-        <option value="starrysky">starrysky</option>
-        <option value="kurobara">kurobara</option>
-        <option value="marukoius">marukoius</option>
-        <option value="novamono">novamono</option>
-        <option value="pricedown">pricedown</option>
-        <option value="corporate">corporate</option>
-        <option value="wingdings">wingdings</option>
-        <option value="wingdings2">wingdings2</option>
-        <option value="wingdings3">wingdings3</option>
-        <option value="webdings">webdings</option>
-    </select>
+    <select id="change" onchange="document.querySelector('#kokodayo').style.fontFamily=document.querySelector('#change').value"></select>
     <textarea id="kokodayo"></textarea> 
+
+    <script>
+        let fontD = document.getElementById('change');
+        const Fonts = [
+            {src:'corporate', type:'otf'},
+            {src:'kaimetsu', type:'otf'},
+            {src:'kurundeco', type:'otf'},
+            {src:'starrysky', type:'otf'},
+            {src:'comicsans', type:'ttf'},
+            {src:'cube12', type:'ttf'},
+            {src:'genjuu', type:'ttf'},
+            {src:'hangyaku', type:'ttf', weight:'700'},
+            {src:'kurobara', type:'ttf'},
+            {src:'marukoius', type:'ttf'},
+            {src:'novamono', type:'ttf'},
+            {src:'papyrus', type:'ttf'},
+            {src:'pricedown', type:'ttf'},
+            {src:'webdings', type:'ttf'},
+            {src:'wingdings', type:'ttf'},
+            {src:'wingdings2', type:'ttf'},
+            {src:'wingdings3', type:'ttf'},
+            {src:'ancientpersia', type:'ttf'},
+            {src:'bodoniornaments', type:'ttf'},
+            {src:'poprumcute', type:'otf'},
+            {src:'craft', type:'otf'},
+            {src:'nyashi', type:'ttf'},
+            {src:'cinecaption226', type:'ttf'},
+            {src:'addheart2', type:'ttf'},
+            {src:'myHeart', type:'otf'},
+            {src:'akmy_prince', type:'ttf'},
+            {src:'adorableLady', type:'ttf'},
+            {src:'adorableDoll', type:'ttf'}
+        ];
+        function fontsLoad(){
+            const id = "font_load_css";
+            const existing = document.getElementById(id);
+            if(existing) existing.remove();
+
+            const css = Fonts.map(f => {
+                let src = `url('assets/${f.src}.${f.type}')`;
+                let weight = f.weight ?? 'normal';
+                return `@font-face{
+                    font-family:'${f.src}';
+                    src: ${src};
+                    font-weight: ${weight};
+                    font-style: normal;
+                    font-display: swap;
+                }`;
+            }).join('\n');
+
+            const el = document.createElement('style');
+            el.id = id;
+            el.type = 'text/css';
+            el.appendChild(document.createTextNode(css));
+            document.head.appendChild(el);
+
+            //こっから今回限定
+            Fonts.forEach(f => {
+                let option = document.createElement('option');
+                option.value = f.src;
+                option.textContent = f.src;
+                fontD.appendChild(option);
+            });
+        }
+        fontsLoad();
+
+        let now = 0;
+        function fontCh(num){
+            let font = Fonts[num].src;
+            document.querySelector('#kokodayo').style.fontFamily = font;
+            document.querySelector('#change').value = font;
+        }
+        document.addEventListener('keydown', e => {
+            let key = e.key.toLowerCase();
+            if(e.key == ' ') key = 'space';
+            
+            if(key == 'arrowdown'){
+                e.preventDefault();
+                now++;
+                if(now >= Fonts.length) now = 0;
+                fontCh(now);
+            }
+            if(key == 'arrowup'){
+                e.preventDefault();
+                now--;
+                if(now < 0) now = Fonts.length - 1;
+                fontCh(now);
+            }
+        });
+    </script>
 </body>
 </html>
